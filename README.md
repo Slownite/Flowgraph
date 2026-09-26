@@ -91,4 +91,13 @@ The test suite includes a multi-file pipeline fixture and a package fixture cove
 
 ## Agent Skill
 
-The project includes `.opencode/skills/flowgraph/SKILL.md`. OpenCode agents can use it to choose entry points, run focused analyses, and interpret unresolved calls without overstating static results. Restart OpenCode after cloning or updating the skill so it is discovered.
+Install the Flowgraph skill globally for OpenCode, Codex, and Claude Code:
+
+```bash
+npx skills add Slownite/explore \
+  --skill flowgraph \
+  --global \
+  --agent opencode codex claude-code
+```
+
+Omit `--global` to install it in the current project. The skill uses the shared Agent Skills format and teaches agents to choose entry points, run focused analyses, and interpret unresolved calls without overstating static results. Restart an agent after installation if it does not reload skills automatically.

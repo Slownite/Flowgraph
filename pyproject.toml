@@ -18,6 +18,9 @@ test = ["pytest>=7"]
 [project.scripts]
 flowgraph = "flowgraph.cli:main"
 
+[tool.setuptools.packages.find]
+include = ["flowgraph*"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"

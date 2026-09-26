@@ -9,16 +9,16 @@ Use Flowgraph to establish the static execution-flow skeleton before reading imp
 
 ## Quick Start
 
-From this repository, analyze another Python repository with:
+Analyze a Python repository without installing Flowgraph:
 
 ```bash
-uvx --from /path/to/flowgraph flowgraph /path/to/repo --entry relative/file.py:qualified.name
+uvx --from git+https://github.com/Slownite/explore.git flowgraph /path/to/repo --entry relative/file.py:qualified.name
 ```
 
 If Flowgraph is installed, use `flowgraph` directly. Nix users can run:
 
 ```bash
-nix run /path/to/flowgraph -- /path/to/repo --entry app.py:main
+nix run github:Slownite/explore -- /path/to/repo --entry app.py:main
 ```
 
 ## Workflow
