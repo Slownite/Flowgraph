@@ -1,0 +1,2 @@
+include docs/design.md
+recursive-include tests/fixtures *.py
