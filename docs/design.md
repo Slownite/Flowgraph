@@ -1,4 +1,4 @@
-# Flowgraph v1 design
+# Flowgraph design
 
 ## Product objective
 
@@ -18,7 +18,7 @@ The design was challenged before implementation. The resulting v1 choices are:
 - Include only confidently resolved local calls as graph edges. Preserve ambiguous dynamic calls as diagnostics rather than inventing edges.
 - Index direct absolute and relative local imports. Do not emulate wildcard imports, dynamic imports, or package re-exports.
 - Use plain adjacency traversal rather than NetworkX. V1 needs breadth-first reachability and forward/reverse reachability only.
-- Export JSON and Mermaid and print a terminal summary. An interactive HTML application would distract from analyzer quality in v1.
+- Export JSON and Mermaid, print a terminal summary, and generate a self-contained interactive HTML viewer. The viewer uses dependency-free inline SVG and JavaScript so generated reports work offline without changing the analyzer's zero-runtime-dependency model.
 - Offer two workflows: an entry-rooted graph and an all-connecting-flow path query. Separate `analyze`, `graph`, and `inspect` commands would duplicate a small API.
 - Limit entry-rooted output to depth 5 by default and support repeatable canonical-ID glob exclusions. Do not hide functions using name-based "utility" heuristics.
 
@@ -30,7 +30,7 @@ The design was challenged before implementation. The resulting v1 choices are:
 - Semantic stage inference or mandatory LLM use
 - Runtime tracing
 - Multi-language parsing
-- Interactive HTML visualization
+- Source-code embedding, graph editing, or browser-based analysis
 
 ## Graph model
 
@@ -60,7 +60,9 @@ flowgraph REPO --entry relative/path.py:qualified.name [--depth 5] [--exclude GL
 flowgraph path REPO --from SELECTOR --to SELECTOR [--exclude GLOB]
 ```
 
-The primary command writes `.flowgraph/graph.json` and `.flowgraph/graph.mmd`. `--output-dir` can change the destination. Selectors may be canonical IDs or unique function/qualified names; ambiguous shorthand is an error with candidate IDs.
+The primary command writes `.flowgraph/graph.json`, `.flowgraph/graph.mmd`, and `.flowgraph/graph.html`. `--output-dir` can change the destination. Selectors may be canonical IDs or unique function/qualified names; ambiguous shorthand is an error with candidate IDs.
+
+The HTML viewer pre-renders a deterministic left-to-right SVG layout. It supports search, pan, zoom, fit-to-view, and keyboard-selectable nodes. Selecting a node highlights direct callers and callees and shows graph metadata and unresolved diagnostics. Source text is not embedded.
 
 Path mode returns the subgraph containing every node that is both reachable from the source and able to reach the target. This preserves alternate branches and merges without enumerating exponentially many paths.
 
@@ -80,5 +82,5 @@ Path mode returns the subgraph containing every node that is both reachable from
 1. Validate the static graph against real repositories and improve resolution only from observed failures.
 2. Add optional semantic summaries and stage groups as annotations over stable function IDs. The deterministic graph remains authoritative.
 3. Add runtime tracing as separate evidence over the same IDs, allowing static-only, observed, and combined edge states.
-4. Consider a self-contained HTML viewer only when JSON and Mermaid no longer support practical exploration.
+4. Improve the HTML layout only in response to observed graph-size or readability limits.
 5. Consider tree-sitter only for concrete multi-language or error-tolerant parsing requirements.

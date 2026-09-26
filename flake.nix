@@ -13,7 +13,7 @@
           pkgs = nixpkgs.legacyPackages.${system};
           flowgraph = pkgs.python312Packages.buildPythonApplication {
             pname = "flowgraph-cli";
-            version = "0.1.0";
+            version = "0.2.1";
             pyproject = true;
             src = pkgs.lib.cleanSourceWith {
               src = self;

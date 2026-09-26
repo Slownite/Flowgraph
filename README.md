@@ -1,6 +1,6 @@
 # Flowgraph
 
-Flowgraph is a small, deterministic CLI for understanding reachable function calls in an unfamiliar Python repository. Starting from one local function, it follows confidently resolved local calls and writes a readable terminal summary, JSON, and Mermaid.
+Flowgraph is a small, deterministic CLI for understanding reachable function calls in an unfamiliar Python repository. Starting from one local function, it follows confidently resolved local calls and writes a readable terminal summary, JSON, Mermaid, and a self-contained interactive HTML viewer.
 
 It is a static call-flow explorer, not a dependency graph or Python interpreter. Dynamic dispatch is reported honestly rather than guessed.
 
@@ -58,9 +58,10 @@ By default, output is written inside the analyzed repository:
 ```text
 .flowgraph/graph.json
 .flowgraph/graph.mmd
+.flowgraph/graph.html
 ```
 
-Use `--output-dir PATH` to choose another location.
+Open `graph.html` directly in a browser. It works offline with no server or CDN and provides function search, pan and zoom controls, caller/callee highlighting, and details for source locations and unresolved calls. Use `--output-dir PATH` to choose another output location.
 
 ## Resolution
 
@@ -83,7 +84,7 @@ See [`docs/design.md`](docs/design.md) for the model, tradeoffs, limitations, an
 ```bash
 git clone https://github.com/Slownite/Flowgraph.git
 cd Flowgraph
-uv run --extra test pytest
+uv run --extra test python -m pytest
 nix flake check
 ```
 

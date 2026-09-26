@@ -10,6 +10,7 @@ from flowgraph import __version__
 from flowgraph.analysis.python_ast import AnalysisError, analyze_repository
 from flowgraph.graph.model import Graph, SelectorError, resolve_selector
 from flowgraph.graph.traversal import connecting_graph, reachable_graph, without_excluded
+from flowgraph.render.html import render_html
 from flowgraph.render.mermaid import render_mermaid
 from flowgraph.render.text import render_text
 
@@ -87,6 +88,7 @@ def run(argv: Sequence[str] | None = None) -> int:
     print(render_text(graph))
     print(f"Wrote {output_dir / 'graph.json'}")
     print(f"Wrote {output_dir / 'graph.mmd'}")
+    print(f"Wrote {output_dir / 'graph.html'}")
     return 0
 
 
@@ -102,6 +104,7 @@ def _write_outputs(graph: Graph, output_dir: Path) -> None:
         json.dumps(graph.to_dict(), indent=2) + "\n", encoding="utf-8"
     )
     (output_dir / "graph.mmd").write_text(render_mermaid(graph), encoding="utf-8")
+    (output_dir / "graph.html").write_text(render_html(graph), encoding="utf-8")
 
 
 def main() -> None:

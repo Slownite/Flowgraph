@@ -7,7 +7,7 @@ from flowgraph.cli import run
 FIXTURE = Path(__file__).parent / "fixtures" / "pipeline_repo"
 
 
-def test_cli_writes_reachable_json_and_mermaid(tmp_path, capsys):
+def test_cli_writes_reachable_json_mermaid_and_html(tmp_path, capsys):
     result = run(
         [
             str(FIXTURE),
@@ -29,7 +29,10 @@ def test_cli_writes_reachable_json_and_mermaid(tmp_path, capsys):
         "pipeline.py:preprocess",
     }
     assert (tmp_path / "graph.mmd").read_text().startswith("flowchart TD\n")
-    assert "Wrote" in capsys.readouterr().out
+    html = (tmp_path / "graph.html").read_text()
+    assert html.startswith("<!doctype html>\n")
+    output = capsys.readouterr().out
+    assert f"Wrote {tmp_path / 'graph.html'}" in output
 
 
 def test_path_cli_accepts_unique_short_names(tmp_path):
