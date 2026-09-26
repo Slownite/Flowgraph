@@ -9,21 +9,21 @@ It is a static call-flow explorer, not a dependency graph or Python interpreter.
 Requires Python 3.10 or newer and is explicitly tested on Python 3.12. The Nix package uses Python 3.12. The runtime has no third-party dependencies.
 
 ```bash
-pipx install git+https://github.com/Slownite/explore.git
+pipx install git+https://github.com/Slownite/Flowgraph.git
 flowgraph --help
 ```
 
 Run directly with uv without installing:
 
 ```bash
-uvx --from git+https://github.com/Slownite/explore.git flowgraph --help
+uvx --from git+https://github.com/Slownite/Flowgraph.git flowgraph --help
 ```
 
 Install or run with Nix:
 
 ```bash
-nix profile install github:Slownite/explore
-nix run github:Slownite/explore -- --help
+nix profile install github:Slownite/Flowgraph
+nix run github:Slownite/Flowgraph -- --help
 ```
 
 ## Use
@@ -81,8 +81,8 @@ See [`docs/design.md`](docs/design.md) for the model, tradeoffs, limitations, an
 ## Develop
 
 ```bash
-git clone https://github.com/Slownite/explore.git
-cd explore
+git clone https://github.com/Slownite/Flowgraph.git
+cd Flowgraph
 uv run --extra test pytest
 nix flake check
 ```
@@ -94,7 +94,7 @@ The test suite includes a multi-file pipeline fixture and a package fixture cove
 Install the Flowgraph skill globally for OpenCode, Codex, and Claude Code:
 
 ```bash
-npx skills add Slownite/explore \
+npx skills add Slownite/Flowgraph \
   --skill flowgraph \
   --global \
   --agent opencode codex claude-code
