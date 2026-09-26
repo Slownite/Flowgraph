@@ -9,21 +9,21 @@ It is a static call-flow explorer, not a dependency graph or Python interpreter.
 Requires Python 3.10 or newer and is explicitly tested on Python 3.12. The Nix package uses Python 3.12. The runtime has no third-party dependencies.
 
 ```bash
-pipx install .
+pipx install git+https://github.com/Slownite/explore.git
 flowgraph --help
 ```
 
 Run directly with uv without installing:
 
 ```bash
-uvx --from . flowgraph --help
+uvx --from git+https://github.com/Slownite/explore.git flowgraph --help
 ```
 
 Install or run with Nix:
 
 ```bash
-nix profile install .
-nix run . -- --help
+nix profile install github:Slownite/explore
+nix run github:Slownite/explore -- --help
 ```
 
 ## Use
@@ -81,6 +81,8 @@ See [`docs/design.md`](docs/design.md) for the model, tradeoffs, limitations, an
 ## Develop
 
 ```bash
+git clone https://github.com/Slownite/explore.git
+cd explore
 uv run --extra test pytest
 nix flake check
 ```
